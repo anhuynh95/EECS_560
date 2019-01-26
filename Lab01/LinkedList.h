@@ -13,10 +13,12 @@ public:
   int Smallest() const;
   int Largest() const;
   double Average() const;
-  //void Merge2Lists(Node<int>* m_front);
+  void Merge2Lists(LinkedList& newList);
   void Print();
 private:
   void sort();
+  void DeleteFront();
+  int getFront() const;
   Node* head;
   int length;
 };

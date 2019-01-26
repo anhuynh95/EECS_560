@@ -30,6 +30,7 @@ bool LinkedList::IsEmpty() const
 void LinkedList::Insert(int num)
 {
   Node* newNode = new Node(num);
+  newNode->setNext(nullptr);
   if(IsEmpty() == true)
   {
     head = newNode;
@@ -53,13 +54,13 @@ void LinkedList::Delete(int num)
   Node* current = head;
   if(IsEmpty() == true)
   {
-    std::cout<<"Your list has no element to delete.";
+    std::cout<<"Your list has no element to delete. \n";
   }
   else if(current->getNum() == num)
   {
     current = current->getNext();
     delete previous;
-    std::cout<<"Delete was successful.";
+    std::cout<<"Delete was successful. \n";
     length--;
   }
   else
@@ -79,13 +80,13 @@ void LinkedList::Delete(int num)
     }
     if(current == nullptr)
     {
-      std::cout<<"Delete failed. Number was not found in the list.";
+      std::cout<<"Delete failed. Number was not found in the list.\n";
     }
     else
     {
       previous->setNext(current->getNext());
       delete current;
-      std::cout<<"Delete was successful.";
+      std::cout<<"Delete was successful.\n";
       length--;
     }
   }
@@ -94,8 +95,8 @@ void LinkedList::Delete(int num)
 int LinkedList::Smallest() const
 {
   Node* temp = head;
-  int min = 0;
-  while(temp->getNext() != nullptr)
+  int min = temp->getNum();
+  while(temp != nullptr)
   {
     if(min > temp->getNum())
     {
@@ -109,8 +110,8 @@ int LinkedList::Smallest() const
 int LinkedList::Largest() const
 {
   Node* temp = head;
-  int max = 0;
-  while(temp->getNext() != nullptr)
+  int max = temp->getNum();
+  while(temp != nullptr)
   {
     if(max < temp->getNum())
     {
@@ -126,7 +127,7 @@ double LinkedList::Average() const
   Node* temp = head;
   int sum = 0;
   double ave = 0;
-  while(temp->getNext() != nullptr)
+  while(temp != nullptr)
   {
     sum = sum + temp->getNum();
     temp = temp->getNext();
@@ -159,13 +160,41 @@ void LinkedList::sort()
   }
 }
 
+void LinkedList::DeleteFront()
+{
+  if(!IsEmpty())
+  {
+    Node* previous = head;
+    Node* current = head;
+    current = current->getNext();
+    delete previous;
+    head = current;
+    length--;
+  }
+}
+
+int LinkedList::getFront() const
+{
+    return(head->getNum());
+}
+
+void LinkedList::Merge2Lists(LinkedList& newList)
+{
+  while(!newList.IsEmpty())
+  {
+    this->Insert(newList.getFront());
+    newList.DeleteFront();
+  }
+  this->sort();
+}
+
 void LinkedList::Print()
 {
   Node* current = head;
   std::cout<<"List: ";
-  while(current->getNext() != nullptr)
+  while(current != nullptr)
   {
-    std::cout<<current->getNum() + " ";
+    std::cout<<current->getNum()<<" ";
     current = current->getNext();
   }
   std::cout<<"\n";

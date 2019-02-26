@@ -27,30 +27,9 @@ DoubHash::~DoubHash()
 
 int DoubHash::Hash(std::string x, int y)
 {
-	int sum =0;
-	int a =0;
 	int position;
-	int length = x.length();
-	if(length > 8){
-		length = 8;
-	}
-	char temp[length];
-	for(int i = 0; i <length; i++)
-  	{
-  		temp[i] = x[i];
-  	}
-  	for(int i =0; i<length; i++)
-  	{
-  		int mul =1;
-  		for(int j=0; j<i; j++)
-  		{
-  			mul = mul*10;
-  		}
-  		a = int(temp[i])*mul;
-  		sum = sum+a;
-  	}
-  	position = (sum+y)%size;
-  	return position;
+	position = (std::stoi(x)+y)%size;
+	return position;
 
 }
 
@@ -82,7 +61,7 @@ int DoubHash::findValue(std::string x)
 
 void DoubHash::Print()
 {
-	cout<<"Double hashing: \n\n";
+	cout<<"Hash Table with Quadratic Probing:\n";
 	for(int i =0; i<size; i++)
 	{
 		if(bucket[i]!="")
@@ -107,7 +86,7 @@ bool DoubHash::isOn(std::string x)
 
 void DoubHash::Insert(std::string x)
 {
-	
+
 	if(isOn(x) == true)
 	{
 		cout<<"Double probing: "<<x<<" is duplicated, can’t be added to the hash table\n";
@@ -134,8 +113,8 @@ void DoubHash::Insert(std::string x)
 			else
 			{
 				bool check = false;
-				int hx = 5-(findValue(x)%5);
-				for(int i=1; i<=elementNum; i++)
+				int hx = 100003-(findValue(x)%100003);
+				for(int i=1; i<=20; i++)
 				{
 					int pos = (Hash(x, 0) + i*hx)%size;
 					if(isEmpty[pos] == true)
@@ -155,7 +134,7 @@ void DoubHash::Insert(std::string x)
 				}
 			}
 		}
-		
+
 	}
 }
 
@@ -208,24 +187,25 @@ void DoubHash::Delete(std::string x)
 	}
 }
 
-void DoubHash::Find(std::string x)
+bool DoubHash::Find(std::string x)
 {
 	bool check = false;
 	std::string result;
 	for(int i =0; i<size; i++)
 	{
-		if(bucket[i] == x || (bucket[i] == findReverse(x) && isReversed[i]==true))
+		if(bucket[i] == x)
 		{
-			cout<<"Double probing: '"<<x<<"' is found at location "<<i<<endl;
+			cout<<"Double probing: "<<x<<" is found at location "<<i<<endl;
 			check = true;
 			break;
 		}
 	}
 	if(check == false)
 	{
-		cout<<x<<" is not found in the hash table.\n";
+		cout<<"Double probing: "<<x<<" is not found in the hash table.\n";
+		return false;
 	}
-	cout<<endl;
+	else return true;
 }
 
 void DoubHash::FindPalindrome()
@@ -255,7 +235,7 @@ void DoubHash::FindPalindrome()
 		}
 	}
 	cout<<endl<<endl;
-	
+
 }
 
 void DoubHash::ReverseString(int x)
@@ -264,8 +244,8 @@ void DoubHash::ReverseString(int x)
 	if(temp !="")
 	{
 		int end = bucket[x].length();
-		
-		cout<<"Double probing: String '"<<temp; 
+
+		cout<<"Double probing: String '"<<temp;
 		for(int i=0; i<end/2; i++)
 		{
 			char temp1 = temp[end-1];
@@ -280,7 +260,7 @@ void DoubHash::ReverseString(int x)
 	{
 		cout<<"There is no string at location "<<x<<" with Double probing.\n";
 	}
-	
+
 }
 
 std::string DoubHash::findReverse(std::string x)
@@ -311,7 +291,7 @@ int DoubHash::findNextPrime(int x)
 			{
 				count++;
 				break;
-			} 
+			}
 		}
 		if(count ==0) return i;
 	}

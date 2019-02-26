@@ -10,7 +10,7 @@ class QuadHash{
 		void Insert2(std::string, int y);
 		void Delete(std::string x);
 		void Print();
-		void Find(std::string x);
+		bool Find(std::string x);
 		void FindPalindrome();
 		void ReverseString(int x);
 		int Hash(std::string x, int y);

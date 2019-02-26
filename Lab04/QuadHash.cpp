@@ -27,37 +27,15 @@ QuadHash::~QuadHash()
 
 int QuadHash::Hash(std::string x, int y)
 {
-	int sum =0;
-	int a =0;
-	int position;
-	int length = x.length();
-	if(length > 8){
-		length = 8;
-	}
-	char temp[length];
-	for(int i = 0; i <length; i++)
-  	{
-  		temp[i] = x[i];
-  	}
-  	for(int i =0; i<length; i++)
-  	{
-  		int mul =1;
-  		for(int j=0; j<i; j++)
-  		{
-  			mul = mul*10;
-  		}
-  		a = int(temp[i])*mul;
-  		sum = sum+a;
-  	}
-  	position = (sum+y)%size;
-  	
+		int position;
+  	position = (std::stoi(x)+y)%size;
   	return position;
 
 }
 
 void QuadHash::Print()
 {
-	cout<<"Quadratic probing: \n\n";
+	cout<<"Hash Table with Quadratic Probing:\n";
 	for(int i =0; i<size; i++)
 	{
 		if(bucket[i]!="")
@@ -82,7 +60,7 @@ bool QuadHash::isOn(std::string x)
 
 void QuadHash::Insert(std::string x)
 {
-	
+
 	if(isOn(x) == true)
 	{
 		cout<<"Quadratic probing: "<<x<<" is duplicated, can’t be added to the hash table\n";
@@ -109,7 +87,7 @@ void QuadHash::Insert(std::string x)
 			else
 			{
 				bool check = false;
-				for(int i=1; i<=elementNum; i++)
+				for(int i=1; i<=20; i++)
 				{
 					if(isEmpty[Hash(x,i*i)] == true)
 					{
@@ -128,7 +106,7 @@ void QuadHash::Insert(std::string x)
 				}
 			}
 		}
-		
+
 	}
 }
 
@@ -178,24 +156,25 @@ void QuadHash::Delete(std::string x)
 	}
 }
 
-void QuadHash::Find(std::string x)
+bool QuadHash::Find(std::string x)
 {
 	bool check = false;
 	std::string result;
 	for(int i =0; i<size; i++)
 	{
-		if(bucket[i] == x || (bucket[i] == findReverse(x) && isReversed[i]==true))
+		if(bucket[i] == x)
 		{
-			cout<<"Quadratic probing: '"<<x<<"' is found at location "<<i<<endl;
+			cout<<"Quadratic probing: "<<x<<" is found at location "<<i<<endl;
 			check = true;
 			break;
 		}
 	}
 	if(check == false)
 	{
-		cout<<x<<" is not found in the hash table.\n";
+		cout<<"Quadratic probing: "<<x<<" is not found in the hash table.\n";
+		return false;
 	}
-	cout<<endl;
+	else return true;
 }
 
 void QuadHash::FindPalindrome()
@@ -225,7 +204,7 @@ void QuadHash::FindPalindrome()
 		}
 	}
 	cout<<endl<<endl;
-	
+
 }
 
 void QuadHash::ReverseString(int x)
@@ -234,7 +213,7 @@ void QuadHash::ReverseString(int x)
 	if(temp !="")
 	{
 		int end = bucket[x].length();
-		
+
 		cout<<"Quadratic probing: String '"<<temp;
 		for(int i=0; i<end/2; i++)
 		{
@@ -250,7 +229,7 @@ void QuadHash::ReverseString(int x)
 	{
 		cout<<"There is no string at location "<<x<<" with Quadratic probing.\n";
 	}
-	
+
 }
 
 std::string QuadHash::findReverse(std::string x)
@@ -281,7 +260,7 @@ int QuadHash::findNextPrime(int x)
 			{
 				count++;
 				break;
-			} 
+			}
 		}
 		if(count ==0) return i;
 	}

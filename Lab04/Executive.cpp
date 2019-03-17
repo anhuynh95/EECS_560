@@ -18,8 +18,8 @@ void Executive::run()
   {
     range = range + 0.1;
     f_range = f_range+0.01;
-    int i_size = floor(range*m); //change this
-    int f_size = floor(f_range*m); //change this
+    int i_size = floor(range*100); //change this
+    int f_size = floor(f_range*100); //change this
     int i_num[i_size];
     int f_num[f_size];
     srand(time(NULL));

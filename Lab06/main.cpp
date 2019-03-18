@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-using namespace std;
+//using namespace std;
 
 int main()
 {
@@ -15,18 +15,25 @@ int main()
 	}
   else
   {
-    Optimal op;
     std::string temp;
+    int cnt = 0;
+     while(inFile>>temp)
+     {
+       cnt++;
+     }
+     inFile.clear();
+     inFile.seekg(0, ios::beg);
+     Optimal op(cnt);
      while(inFile>>temp)
      {
        op.Insert(temp);
      }
-    inFile.close();
-    op.Run();
-    cout<<"Here is the optimal BST (in PreOrder):\n";
-    op.Print(0);
-    cout<<endl<<endl;
-    cout<<"The minimal cost is: "<<op.getCost()<<endl<<endl;
+     inFile.close();
+     op.Run();
+     cout<<"Here is the optimal BST (in PreOrder):\n";
+     op.Print(0);
+     cout<<endl<<endl;
+     cout<<"The minimal cost is: "<<op.getCost()<<endl<<endl;
   }
   return 0;
 }

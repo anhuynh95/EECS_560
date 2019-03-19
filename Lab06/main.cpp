@@ -1,5 +1,9 @@
 #include "Optimal.h"
 #include "Optimal.cpp"
+#include "BinaryNode.h"
+//#include "BinaryNode.cpp"
+#include "BinarySearchTree.h"
+#include "BinarySearchTree.cpp"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -30,10 +34,11 @@ int main()
      }
      inFile.close();
      op.Run();
-     cout<<"Here is the optimal BST (in PreOrder):\n";
-     op.Print(0);
+     cout<<"Here is the optimal BST:\n";
+     op.buildTree(1, op.getMySize());
+     op.Printsam();
      cout<<endl<<endl;
-     cout<<"The minimal cost is: "<<op.getCost()<<endl<<endl;
+     cout<<"The minimal cost is: "<<std::fixed<< std::setprecision(3) <<op.getCost()<<endl;
   }
   return 0;
 }

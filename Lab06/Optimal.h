@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include "BinarySearchTree.h"
 #ifndef OPTIMAL_H
 #define OPTIMAL_H
 class Optimal
@@ -8,10 +9,12 @@ public:
   Optimal(int s);
   ~Optimal();
   bool Insert(std::string wo);
-  void Print(int pos);
+  void buildTree(int i, int j);
+  void Printsam();
   float Run();
   float findSum(int x, int y);
   float getCost();
+  int getMySize();
 private:
   std::string* m_word;
   std::string* m_data;
@@ -28,8 +31,7 @@ private:
   bool isOnData(std::string w);
   float findProb(std::string w);
   void sort();
-  void buildTreeLeft(int x, int y, int z);
-  void buildTreeRight(int x, int y, int z);
-
+  int findValue(std::string w);
+  BinarySearchTree m_tree;
 };
 #endif
